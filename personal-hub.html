@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>My Life Hub — Portfolio · IELTS · Journal · Hobbies</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans','Noto Sans SC',sans-serif;background:var(--bg);color:var(--text);font-size:15.5px;line-height:1.55}
+:root{
+  --bg:#f4f6fb;--card:#ffffff;--text:#1e2433;--muted:#68718a;--line:#e4e8f2;
+  --accent:#6366f1;--accent2:#8b5cf6;--accent-soft:#eceefe;
+  --shadow:0 1px 3px rgba(23,30,60,.08),0 8px 24px rgba(23,30,60,.06);
+}
+[data-theme="dark"]{
+  --bg:#0f1420;--card:#171e2e;--text:#e7ebf5;--muted:#8b94ab;--line:#262f45;
+  --accent:#818cf8;--accent2:#a78bfa;--accent-soft:#1e2640;
+  --shadow:0 1px 3px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.28);
+}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--accent);text-decoration:none}
+h1,h2,h3{line-height:1.25}
+.h1{font-size:clamp(1.35rem,2.6vw,1.8rem);font-weight:800}
+.h2{font-size:1.08rem;font-weight:800}
+.sub{color:var(--muted);font-size:.88rem}
+.muted{color:var(--muted)}
+.mt{margin-top:14px}.mb{margin-bottom:14px}
+
+/* layout */
+.app{display:flex;min-height:100dvh}
+.sidebar{width:240px;flex:0 0 240px;background:var(--card);border-right:1px solid var(--line);padding:20px 14px;display:flex;flex-direction:column;gap:4px;position:sticky;top:0;height:100dvh;z-index:40}
+.brand{font-weight:800;font-size:1.12rem;padding:6px 10px 18px;line-height:1.2}
+.brand small{display:block;font-weight:600;font-size:.66rem;color:var(--muted);letter-spacing:.03em}
+.nav{display:flex;flex-direction:column;gap:4px}
+.nav a{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;color:var(--muted);font-weight:650;font-size:.92rem;transition:.15s}
+.nav a:hover{background:var(--accent-soft);color:var(--text)}
+.nav a.active{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff;box-shadow:0 4px 14px rgba(99,102,241,.35)}
+.side-foot{margin-top:auto;font-size:.72rem;color:var(--muted);padding:10px 12px;line-height:1.5}
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.topbar{display:flex;align-items:center;gap:10px;padding:12px clamp(14px,3vw,28px);position:sticky;top:0;background:var(--bg);z-index:20;border-bottom:1px solid var(--line)}
+.top-title{font-weight:800;font-size:clamp(1rem,2vw,1.15rem);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.live-clock{font-size:.72rem;font-weight:800;color:var(--muted);white-space:nowrap}
+.container{width:100%;max-width:1080px;margin:0 auto;padding:clamp(16px,3vw,28px)}
+.view{display:none}
+.view.active{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.scrim{position:fixed;inset:0;background:rgba(10,15,30,.45);z-index:35;opacity:0;pointer-events:none;transition:.2s}
+.scrim.show{opacity:1;pointer-events:auto}
+
+/* bottom nav (mobile) */
+.bottomnav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);z-index:30;display:none;grid-template-columns:repeat(5,1fr);padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
+.bottomnav a{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:.6rem;color:var(--muted);font-weight:700;padding:4px 0;border-radius:10px}
+.bottomnav a span.ico{font-size:1.15rem}
+.bottomnav a.active{color:var(--accent)}
+
+/* cards & grids */
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:clamp(16px,2.5vw,22px)}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.g3{grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr))}
+.stats{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr))}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow)}
+.stat .num{font-size:1.45rem;font-weight:800;line-height:1.1}
+.stat .lbl{font-size:.74rem;font-weight:700;color:var(--muted);margin-top:2px}
+.bar{height:8px;background:var(--accent-soft);border-radius:99px;overflow:hidden}
+.bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:99px;transition:width .3s}
+.bar.big{height:12px}
+
+/* buttons & inputs */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;cursor:pointer;border-radius:12px;padding:10px 16px;font-weight:700;font-size:.9rem;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff;box-shadow:0 4px 14px rgba(99,102,241,.3);transition:.15s}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:var(--accent-soft);color:var(--accent);box-shadow:none}
+.btn.danger{background:#fee2e2;color:#dc2626;box-shadow:none}
+.btn.danger:hover{filter:brightness(.97)}
+[data-theme="dark"] .btn.danger{background:#3b1d24;color:#f87171}
+.btn.sm{padding:6px 12px;font-size:.8rem;border-radius:10px}
+.icon-btn{width:38px;height:38px;flex:0 0 38px;border-radius:11px;border:1px solid var(--line);background:var(--card);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.05rem;transition:.15s}
+.icon-btn:hover{border-color:var(--accent)}
+.input,.select,.textarea{width:100%;border:1.5px solid var(--line);background:var(--bg);border-radius:12px;padding:10px 12px;outline:none;transition:.15s;color:var(--text)}
+.input:focus,.textarea:focus,.select:focus{border-color:var(--accent)}
+.textarea{min-height:130px;resize:vertical;line-height:1.6}
+.field{display:block;margin-bottom:10px;font-size:.76rem;font-weight:800;color:var(--muted);letter-spacing:.02em}
+.field .input,.field .select,.field .textarea{margin-top:5px;font-size:.94rem;font-weight:500;color:var(--text)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.spacer{flex:1 1 auto}
+
+/* chips */
+.chip{display:inline-flex;align-items:center;gap:4px;font-size:.7rem;font-weight:800;padding:3px 9px;border-radius:99px;background:var(--accent-soft);color:var(--accent);white-space:nowrap}
+.chip.gray{background:var(--bg);color:var(--muted)}
+.chip.green{background:#dcfce7;color:#15803d}
+.chip.amber{background:#fef3c7;color:#b45309}
+.chip.red{background:#fee2e2;color:#b91c1c}
+.chip.green2{background:#dcfce7;color:#15803d}
+[data-theme="dark"] .chip.green{background:#123122;color:#4ade80}
+[data-theme="dark"] .chip.amber{background:#33270f;color:#fbbf24}
+[data-theme="dark"] .chip.red{background:#3b1d24;color:#f87171}
+
+/* tabs */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.tab{border:1.5px solid var(--line);background:var(--card);color:var(--muted);border-radius:99px;padding:8px 16px;font-weight:700;font-size:.85rem;cursor:pointer;transition:.15s}
+.tab:hover{color:var(--text)}
+.tab.active{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff;border-color:transparent;box-shadow:0 4px 14px rgba(99,102,241,.3)}
+
+/* word list */
+.wordlist{padding:2px 10px}
+.wordrow{display:flex;align-items:center;gap:10px;padding:11px 6px;border-bottom:1px dashed var(--line);cursor:pointer;border-radius:10px;flex-wrap:wrap}
+.wordrow:last-child{border-bottom:0}
+.wordrow:hover{background:var(--accent-soft)}
+.w-word{font-weight:800;font-size:.98rem;min-width:118px}
+.w-pos{font-style:italic;color:var(--muted);font-weight:500;font-size:.78rem;margin-left:4px}
+.w-def{color:var(--muted);font-size:.84rem;flex:1 1 220px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.w-chips{display:flex;gap:6px;align-items:center;margin-left:auto}
+
+/* flashcards */
+.fc-stage{display:flex;flex-direction:column;align-items:center;gap:14px;margin-top:14px}
+.fc{width:min(100%,440px);height:290px;perspective:1200px;cursor:pointer}
+.fc-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .45s}
+.fc.flipped .fc-inner{transform:rotateY(180deg)}
+.fc-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:22px;text-align:center;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);overflow:auto}
+.fc-face.back{transform:rotateY(180deg);background:linear-gradient(160deg,var(--accent-soft),var(--card) 70%);justify-content:flex-start;text-align:left;align-items:flex-start}
+.fc-word{font-size:clamp(1.5rem,5vw,2.1rem);font-weight:800}
+.fc-hint{font-size:.75rem;color:var(--muted);font-weight:700}
+
+/* quiz */
+.quizopt{width:100%;text-align:left;border:1.5px solid var(--line);background:var(--card);color:var(--text);border-radius:12px;padding:12px 14px;cursor:pointer;font-size:.92rem;transition:.15s;display:flex;gap:10px;line-height:1.45}
+.quizopt:hover:not(:disabled){border-color:var(--accent)}
+.quizopt.correct{border-color:#16a34a;background:#f0fdf4}
+.quizopt.wrong{border-color:#ef4444;background:#fef2f2}
+.quizopt:disabled{cursor:default}
+[data-theme="dark"] .quizopt.correct{background:#0f2a1a}
+[data-theme="dark"] .quizopt.wrong{background:#2e1418}
+.qletter{font-weight:800;color:var(--accent);flex:0 0 auto}
+
+/* journal */
+.jentry{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:16px 18px;margin-bottom:12px}
+.jhead{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.mood-lg{font-size:1.5rem}
+.jcontent{margin-top:8px;white-space:pre-wrap;color:var(--text);font-size:.94rem}
+.mood-btn{width:42px;height:42px;font-size:1.25rem;border-radius:12px;border:1.5px solid var(--line);background:var(--card);cursor:pointer;transition:.15s}
+.mood-btn.sel{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 3px var(--accent-soft)}
+
+/* hobbies */
+.hobby{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:18px;display:flex;flex-direction:column;gap:8px}
+.hobby .ico{width:52px;height:52px;border-radius:14px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-size:1.6rem}
+
+/* portfolio */
+.skillrow{display:flex;align-items:center;gap:12px;padding:8px 0}
+.skillrow .bar{flex:1;min-width:80px}
+.projcard{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:18px;display:flex;flex-direction:column;gap:8px}
+
+/* study tracker */
+.timer-card{text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px}
+.timer-value{font-size:clamp(2.4rem,8vw,4.2rem);font-weight:850;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:.03em}
+.timer-running{box-shadow:0 0 0 4px var(--accent-soft),var(--shadow)}
+.session-list{display:flex;flex-direction:column}
+.session-row{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px dashed var(--line)}
+.session-row:last-child{border:none}
+.tech-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px}
+.tech-item{padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--bg)}
+.tech-item .bar{margin-top:8px}
+.skill-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr))}
+.ielts-skill{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:18px}
+.score-ring{width:78px;height:78px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:10px auto;background:conic-gradient(var(--accent) 0 var(--progress),var(--accent-soft) var(--progress) 100%);position:relative}
+.score-ring:before{content:"";position:absolute;inset:8px;border-radius:50%;background:var(--card)}
+.score-ring strong{position:relative;font-size:1.15rem}
+.note-card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:16px;cursor:pointer}
+
+/* modal & toast */
+.modal-wrap{position:fixed;inset:0;background:rgba(10,15,30,.5);display:flex;align-items:center;justify-content:center;z-index:60;padding:16px}
+.modal{background:var(--card);border-radius:18px;max-width:560px;width:100%;max-height:85dvh;overflow:auto;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.toast-root{position:fixed;left:50%;transform:translateX(-50%);bottom:24px;z-index:70;display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none}
+.toast{background:var(--text);color:var(--bg);padding:10px 18px;border-radius:99px;font-size:.85rem;font-weight:700;box-shadow:var(--shadow);animation:toastIn .25s}
+@keyframes toastIn{from{opacity:0;transform:translateY(8px)}to{opacity:1}}
+.empty{text-align:center;color:var(--muted);padding:34px 16px;font-size:.9rem}
+.empty .big{font-size:2.2rem;display:block;margin-bottom:8px}
+.divider{height:1px;background:var(--line);margin:14px 0;border:0}
+
+/* word of day */
+.wod{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border-radius:16px;padding:20px 22px;box-shadow:0 8px 24px rgba(99,102,241,.35)}
+.wod .chip{background:rgba(255,255,255,.2);color:#fff}
+
+/* mobile */
+@media (max-width:880px){
+  .sidebar{position:fixed;left:0;top:0;bottom:0;transform:translateX(-105%);transition:transform .25s;box-shadow:var(--shadow);height:100dvh}
+  .sidebar.open{transform:none}
+  .bottomnav{display:grid}
+  .main{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+  .toast-root{bottom:86px}
+  .w-def{flex-basis:100%}
+  .w-chips{margin-left:0}
+}
+@media (min-width:881px){
+  .scrim{display:none}
+  #menuBtn{display:none}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">🌈 My Life Hub
+      <small>PORTFOLIO · IELTS · JOURNAL · HOBBIES</small>
+    </div>
+    <nav class="nav">
+      <a href="#/dashboard">🏠 Dashboard</a>
+      <a href="#/portfolio">🪪 Portfolio</a>
+      <a href="#/education">🎓 Education &amp; Work</a>
+      <a href="#/vocab">📚 IELTS Vocabulary</a>
+      <a href="#/ielts">🇬🇧 IELTS Skills</a>
+      <a href="#/journal">📓 Daily Journal</a>
+      <a href="#/hobbies">🎨 Hobbies</a>
+      <a href="#/notes">📝 Notes</a>
+      <a href="#/settings">⚙️ Settings</a>
+    </nav>
+    <div class="side-foot">Your data stays private<br>on this device.</div>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="main">
+    <header class="topbar">
+      <button class="icon-btn" id="menuBtn" aria-label="Open menu">☰</button>
+      <div class="top-title" id="topTitle">Dashboard</div>
+      <time class="live-clock" id="liveClock" aria-live="polite"></time>
+      <span class="storage-status" id="storageStatus" data-mode="local" title="Using browser storage">Browser only</span>
+      <a class="icon-btn" href="#/settings" aria-label="Settings" title="Settings">⚙️</a>
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle theme" title="Toggle light / dark">🌙</button>
+    </header>
+    <section class="view" id="view-dashboard"><div class="container" id="dashRoot"></div></section>
+    <section class="view" id="view-portfolio"><div class="container" id="pfRoot"></div></section>
+    <section class="view" id="view-education"><div class="container" id="eduRoot"></div></section>
+    <section class="view" id="view-vocab"><div class="container" id="vocRoot"></div></section>
+    <section class="view" id="view-ielts"><div class="container" id="ieltsRoot"></div></section>
+    <section class="view" id="view-journal"><div class="container" id="jrRoot"></div></section>
+    <section class="view" id="view-hobbies"><div class="container" id="hbRoot"></div></section>
+    <section class="view" id="view-notes"><div class="container" id="notesRoot"></div></section>
+    <section class="view" id="view-settings"><div class="container" id="stRoot"></div></section>
+  </main>
+</div>
+<nav class="bottomnav">
+  <a href="#/dashboard"><span class="ico">🏠</span>Home</a>
+  <a href="#/portfolio"><span class="ico">🪪</span>Portfolio</a>
+  <a href="#/education"><span class="ico">🎓</span>Study</a>
+  <a href="#/ielts"><span class="ico">🇬🇧</span>IELTS</a>
+  <a href="#/notes"><span class="ico">📝</span>Notes</a>
+</nav>
+<div id="modal-root"></div>
+<div class="toast-root" id="toast-root"></div>
+<script>
+'use strict';
+if(location.protocol==='http:'||location.protocol==='https:'){
+  const stylesheet=document.createElement('link');
+  stylesheet.rel='stylesheet';stylesheet.href='/static/style.css';
+  document.head.appendChild(stylesheet);
+}
+/* ============ IELTS vocabulary dataset ============ */
+const TOPICS=['Education','Environment','Technology','Health','Work & Career','Travel & Culture','Society','Money & Consumption'];
+const BANDS=['Band 6+','Band 7+','Band 8+'];
+/* [word, pos, definition, example, synonyms, band 1-3, topic index] */
+const RAW=[
+/* Education */
+['curriculum','n','the subjects included in a course of study','The school curriculum now includes coding lessons.','syllabus',2,0],
+['literacy','n','the ability to read and write','The charity runs classes to improve adult literacy in rural areas.','',1,0],
+['compulsory','adj','required by a rule or a law','Education is compulsory for children up to age sixteen in many countries.','mandatory, obligatory',2,0],
+['vocational','adj','relating to the skills needed for a particular job','Vocational training prepares students for practical careers.','',2,0],
+['tuition','n','money paid for instruction, especially at a college','Tuition fees at private universities can be extremely high.','fees',1,0],
+['scholarship','n','money given to a talented student to pay for studies','She won a scholarship to study engineering abroad.','grant',1,0],
+['undergraduate','n','a university student studying for a first degree','Undergraduates often live in dormitories on campus.','',1,0],
+['postgraduate','n','a student doing advanced study after graduating','Postgraduate research demands strong academic skills.','',1,0],
+['dropout','n','a person who leaves school before finishing','The city launched a program to reduce the school dropout rate.','',2,0],
+['mentor','n','an experienced person who guides someone less experienced','A mentor can help new employees settle in quickly.','adviser, coach',2,0],
+['assess','v','to judge the quality or level of something','Teachers assess student progress through regular tests.','evaluate, appraise',2,0],
+['discipline','n','a branch of knowledge; also controlled behaviour','Mathematics is a fundamental discipline in science education.','field, subject',2,0],
+['distance learning','n','study where the teacher and student are not in the same place','Distance learning became popular after the pandemic.','online education',1,0],
+['intellectual','adj','relating to thinking, knowledge and the mind','Reading develops intellectual curiosity in children.','',2,0],
+['comprehend','v','to fully understand something','Young learners comprehend abstract ideas gradually.','understand, grasp',2,0],
+/* Environment */
+['sustainable','adj','able to continue without harming the environment','Cities should invest in sustainable transport systems.','eco-friendly',2,1],
+['renewable','adj','(of energy) coming from sources that never run out','Solar power is a renewable source of energy.','',1,1],
+['emissions','n','gases released into the air','Car emissions are a major cause of urban air pollution.','',2,1],
+['deforestation','n','cutting down of forests over a large area','Deforestation destroys the habitats of countless species.','',2,1],
+['conservation','n','protecting nature, wildlife or resources','Wildlife conservation needs funding and public support.','protection, preservation',2,1],
+['ecosystem','n','a community of living things and their environment','Wetland ecosystems support a wide range of birds.','',1,1],
+['biodiversity','n','the variety of plants and animals in a place','Coral reefs are famous for their rich biodiversity.','',3,1],
+['contamination','n','the process of making something dirty or polluted','The river suffered contamination from factory waste.','pollution',3,1],
+['degradation','n','the process of becoming worse in quality','Soil degradation makes farming harder every year.','',3,1],
+['carbon footprint','n','the amount of CO2 a person or activity produces','Cycling to work reduces your carbon footprint.','',2,1],
+['scarcity','n','a situation in which there is not enough of something','Water scarcity affects millions of people in dry regions.','shortage, lack',3,1],
+['habitat','n','the natural home of a plant or animal','Logging destroys the habitat of forest animals.','',1,1],
+['climate change','n','long-term changes in world weather patterns','Climate change is melting the polar ice caps.','',1,1],
+['recycling','n','collecting used materials to make new products','Recycling glass and paper saves energy and resources.','',1,1],
+['pollution','n','harmful substances in the environment','Air pollution causes serious health problems in cities.','',1,1],
+/* Technology */
+['innovation','n','a new idea, method or device','Smartphones were a major innovation of the 21st century.','breakthrough',2,2],
+['automation','n','using machines to do work without people','Automation is changing the jobs available to workers.','',2,2],
+['artificial intelligence','n','computer systems that perform tasks like humans','Artificial intelligence can now translate languages instantly.','AI',1,2],
+['cybersecurity','n','protection of computers and data from attacks','Companies spend billions on cybersecurity every year.','',2,2],
+['algorithm','n','a set of rules a computer follows to solve a problem','The app uses an algorithm to recommend videos.','',3,2],
+['surveillance','n','close watching of people or places','Street surveillance cameras help reduce crime.','',3,2],
+['obsolete','adj','no longer used because something newer exists','DVD players became obsolete after streaming services.','outdated',3,2],
+['cutting-edge','adj','extremely modern and advanced','The lab develops cutting-edge medical devices.','state-of-the-art',3,2],
+['breakthrough','n','an important discovery or sudden success','Scientists announced a breakthrough in cancer research.','',2,2],
+['privacy','n','the state of being free from being watched','Many apps collect data that threatens users\' privacy.','',1,2],
+['device','n','a machine or tool made for a particular purpose','Wearable devices track heart rate and sleep.','',1,2],
+['digital literacy','n','the ability to use digital technology well','Digital literacy is now a basic life skill.','',2,2],
+['accessibility','n','the quality of being easy for everyone to use','Good design improves accessibility for disabled users.','',2,2],
+['virtual','adj','existing on computers, not physically','Virtual classrooms connect students around the world.','',1,2],
+['disruption','n','a big change that interrupts how things are done','Ride-sharing apps caused disruption in the taxi industry.','',3,2],
+/* Health */
+['nutrition','n','food and how it affects the body','Good nutrition is essential for growing children.','',1,3],
+['obesity','n','the state of being extremely overweight','Obesity rates have risen sharply among teenagers.','',2,3],
+['epidemic','n','a disease spreading rapidly in one area','The flu epidemic filled hospitals within weeks.','',2,3],
+['vaccination','n','giving a vaccine to protect against a disease','Vaccination programs have wiped out smallpox.','',2,3],
+['sedentary','adj','involving little physical movement','Sedentary lifestyles increase the risk of heart disease.','',3,3],
+['well-being','n','the state of being healthy and happy','Regular exercise improves overall well-being.','',2,3],
+['chronic','adj','lasting for a long time (of an illness)','Chronic back pain affects many office workers.','',3,3],
+['diagnosis','n','identifying an illness by examining its signs','Early diagnosis makes treatment far more effective.','',2,3],
+['therapy','n','treatment to cure a physical or mental condition','Physical therapy helped her walk again after the accident.','',1,3],
+['immunity','n','the body\'s ability to resist disease','Vaccines build immunity against dangerous viruses.','',3,3],
+['hygiene','n','keeping clean to stay healthy','Hand hygiene prevents the spread of germs.','',2,3],
+['addiction','n','the inability to stop using or doing something','Smartphone addiction is common among young people.','',2,3],
+['lifespan','n','the length of time a person or animal lives','Medical advances have extended the average human lifespan.','',2,3],
+['rehabilitation','n','helping someone recover after illness or injury','Stroke patients need long-term rehabilitation.','',3,3],
+['balanced diet','n','a diet containing all the nutrients the body needs','A balanced diet should include fruit and vegetables daily.','',1,3],
+/* Work & Career */
+['occupation','n','a person\'s job or profession','Please write your name and occupation on the form.','',1,4],
+['promotion','n','a move to a higher position at work','He received a promotion after five years of hard work.','',1,4],
+['redundancy','n','losing a job because it is no longer needed','The factory closure led to hundreds of redundancies.','layoff',3,4],
+['freelance','adj','working independently for different companies rather than one employer','Many designers now work as freelance consultants.','self-employed',2,4],
+['workload','n','the amount of work a person has to do','A heavy workload can lead to stress and burnout.','',1,4],
+['colleague','n','a person you work with','My colleagues organised a farewell party for me.','co-worker',1,4],
+['entrepreneur','n','a person who starts and runs their own business','Young entrepreneurs often take big financial risks.','',2,4],
+['qualification','n','a certificate or degree showing ability or training','A degree is a basic qualification for many careers.','credential',1,4],
+['deadline','n','the time by which a task must be finished','We worked late to meet the project deadline.','',1,4],
+['vacancy','n','an available job position','The hotel has a vacancy for an experienced chef.','opening',2,4],
+['internship','n','a period of work experience, often for students','She completed an internship at a law firm.','',1,4],
+['overtime','n','extra hours worked beyond normal working time','Employees are paid extra for weekend overtime.','',1,4],
+['burnout','n','extreme tiredness caused by long-term stress','Regular breaks help prevent burnout at work.','',2,4],
+['remote work','n','working from home or another place using the internet','Remote work became the norm for many office jobs.','telecommuting',1,4],
+['work-life balance','n','a fair division of time between work and personal life','A good work-life balance improves job satisfaction.','',1,4],
+/* Travel & Culture */
+['destination','n','the place someone is travelling to','Bali is a popular destination for honeymooners.','',1,5],
+['heritage','n','traditions and culture passed down through history','The old town is listed as a world heritage site.','legacy',2,5],
+['customs','n','traditional ways of behaving in a society','Visitors should respect local customs and traditions.','traditions',1,5],
+['immigrant','n','a person who moves to another country to live there','The city has a large immigrant community.','',2,5],
+['diversity','n','the state of having many different kinds of people or things','Cultural diversity makes cities more creative.','variety',2,5],
+['landmark','n','a famous building or place that is easy to recognise','The Eiffel Tower is the most famous landmark in Paris.','',1,5],
+['excursion','n','a short trip made for pleasure','The school organised an excursion to the museum.','trip',2,5],
+['hospitality','n','friendly and generous treatment of guests','The region is known for its warm hospitality.','',2,5],
+['tradition','n','a custom passed down through generations','Tea ceremonies are an ancient tradition in Asia.','custom',1,5],
+['assimilate','v','to become part of a new culture or group','New immigrants gradually assimilate into local society.','integrate',3,5],
+['itinerary','n','a detailed plan of a journey','Our itinerary includes three cities in ten days.','schedule',3,5],
+['souvenir','n','something bought to remember a place','She kept a souvenir from every country she visited.','memento',1,5],
+['multicultural','adj','including or relating to several cultures','Toronto is one of the world\'s most multicultural cities.','',2,5],
+['globalization','n','the growing connection between world economies and cultures','Globalization has spread brands across the planet.','',3,5],
+['backpacking','n','travelling cheaply, carrying your things in a backpack','Backpacking through Europe is popular with students.','',1,5],
+/* Society */
+['policy','n','an official plan of action by a government or organisation','The government introduced a new housing policy.','',1,6],
+['legislation','n','laws made by a government','New legislation bans smoking in public places.','law',3,6],
+['welfare','n','help given by the state to people in need','Welfare payments support families with low incomes.','benefits',2,6],
+['democracy','n','government by the people through elected representatives','Freedom of speech is a foundation of democracy.','',1,6],
+['citizen','n','a legal member of a country','Citizens have the right to vote in elections.','',1,6],
+['inequality','n','an unfair difference between groups of people','Income inequality has widened in recent decades.','gap',2,6],
+['poverty','n','the state of being extremely poor','Education helps lift families out of poverty.','',1,6],
+['infrastructure','n','basic structures such as roads, power and water systems','The country invested heavily in transport infrastructure.','',3,6],
+['campaign','n','organised actions to achieve a goal','The city launched a campaign to encourage recycling.','movement',1,6],
+['authority','n','an official body with the power to make decisions','Local authorities closed the beach after the storm.','officials',2,6],
+['regulation','n','an official rule controlling an activity','Strict regulations limit emissions from factories.','rule',2,6],
+['community','n','people living in the same area or sharing interests','Volunteers play a key role in the local community.','',1,6],
+['reform','n','a change made to improve a system','The education reform reduced class sizes.','improvement',2,6],
+['charity','n','an organisation that helps people in need','The charity provides meals for homeless people.','nonprofit',1,6],
+['urbanization','n','the movement of people from the countryside to cities','Rapid urbanization puts pressure on city services.','',3,6],
+/* Money & Consumption */
+['budget','n','a plan for how money will be spent','We set a monthly budget to control our spending.','',1,7],
+['income','n','money received from work or investments','Average household income has risen over the decade.','earnings',1,7],
+['expense','n','money spent on something','Travel expenses are covered by the company.','cost',1,7],
+['inflation','n','a general rise in prices over time','Inflation makes everyday goods more expensive.','',3,7],
+['investment','n','money put into something to earn more later','Education is often called the best investment.','',1,7],
+['consumption','n','the amount of goods, energy or services used','Reducing energy consumption cuts household bills.','use',2,7],
+['tax','n','money paid to the government based on earnings or goods','Taxes fund schools, hospitals and roads.','',1,7],
+['debt','n','money owed to another person or a bank','Student debt prevents many young people from buying homes.','',2,7],
+['afford','v','to have enough money for something','Many young workers cannot afford city rents.','',1,7],
+['purchase','v','to buy something','Consumers prefer online purchases for convenience.','buy',2,7],
+['savings','n','money kept for future use','Building savings protects you in emergencies.','',1,7],
+['luxury','n','something expensive but not necessary','For many families, a second car is a luxury.','',1,7],
+['recession','n','a period when the economy shrinks','Businesses cut hiring during the recession.','downturn',3,7],
+['mortgage','n','a loan used to buy a house','They took out a 25-year mortgage for the apartment.','',3,7],
+['currency','n','the money used in a particular country','The euro is the currency of most EU countries.','',2,7]
+];
+const WORDS=RAW.map((r,i)=>({id:i,w:r[0],pos:r[1],def:r[2],ex:r[3],syn:(r[4]||'').split(/,\s*/).filter(Boolean),band:r[5],topic:TOPICS[r[6]]}));
+/* ============ helpers ============ */
+const $=(s,el=document)=>el.querySelector(s);
+const $$=(s,el=document)=>Array.from(el.querySelectorAll(s));
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+const dayKey=d=>{const x=new Date(d);x.setMinutes(x.getMinutes()-x.getTimezoneOffset());return x.toISOString().slice(0,10);};
+const today=()=>dayKey(new Date());
+const fmtDate=iso=>{try{return new Date(iso+'T00:00:00').toLocaleDateString(undefined,{weekday:'short',year:'numeric',month:'short',day:'numeric'});}catch(e){return iso;}};
+const shuffle=a=>{const x=a.slice();for(let i=x.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[x[i],x[j]]=[x[j],x[i]];}return x;};
+const STATUS_LABEL={new:'🆕 New',learning:'📖 Learning',mastered:'✅ Mastered'};
+const STATUS_CHIP={new:'',learning:'amber',mastered:'green'};
+
+function toast(msg,icon){
+  const t=document.createElement('div');t.className='toast';t.textContent=(icon?icon+' ':'')+msg;
+  $('#toast-root').appendChild(t);setTimeout(()=>{t.style.opacity='0';t.style.transition='.3s';},2200);
+  setTimeout(()=>t.remove(),2600);
+}
+function modal(html){
+  const root=$('#modal-root');
+  root.innerHTML='<div class="modal-wrap"><div class="modal" role="dialog" aria-modal="true">'+html+'</div></div>';
+  const wrap=$('.modal-wrap',root);
+  wrap.addEventListener('click',e=>{if(e.target===wrap)closeModal();});
+  $$('[data-close]',root).forEach(b=>b.addEventListener('click',closeModal));
+  return root;
+}
+function closeModal(){
+  $('#modal-root').innerHTML='';
+  try{if(vocabTab==='browse'&&$('#bList'))renderBrowseList();}catch(e){}
+}
+function confirmBox(title,msg,yesLabel,onYes){
+  modal('<h2 class="h2">'+esc(title)+'</h2><p class="mt" style="font-size:.92rem">'+esc(msg)+'</p>'+
+    '<div class="row mt" style="justify-content:flex-end"><button class="btn ghost sm" data-close>Cancel</button>'+
+    '<button class="btn danger sm" data-yes>'+esc(yesLabel)+'</button></div>');
+  $('[data-yes]').addEventListener('click',()=>{closeModal();onYes();});
+}
+
+/* ============ state ============ */
+const LSKEY='lifehub.v1';
+function seedState(){
+  const yd=dayKey(new Date(Date.now()-86400000));
+  return {
+    v:1,
+    profile:{name:'',role:'Lifelong learner · IELTS candidate',
+      bio:'Welcome to my personal hub! This is where I keep my portfolio, learn IELTS vocabulary, record my daily life and share my hobbies. Click “Edit” to make this page yours.',
+      skills:[{name:'English (IELTS)',level:70},{name:'Photography',level:60},{name:'Cooking',level:55},{name:'Public speaking',level:45}],
+      projects:[
+        {title:'IELTS Vocabulary Trainer',desc:'The flashcard and quiz system built into this hub — 120 hand-picked academic words across 8 topics.',tech:'JavaScript · LocalStorage',year:'2026',link:''},
+        {title:'Sample project — replace me',desc:'Describe something you are proud of: what it does, the tools you used, and the result you achieved.',tech:'Add tags',year:'2025',link:''}],
+      edited:false},
+    vocabStatus:{},
+    journal:[
+      {id:uid(),date:today(),title:'Sample entry — welcome! 👋',mood:'🤩',
+       content:'This is your personal journal. Tap “New entry” to write about your day — your mood, what you learned, small wins. Everything is stored privately in your browser, and you can export a backup from Settings.',
+       tags:['welcome'],created:Date.now()},
+      {id:uid(),date:yd,title:'Started my IELTS word plan',mood:'🙂',
+       content:'Reviewed 10 new words in the vocabulary hub today. Target: 15 words a day with flashcards, then a quiz every weekend.',
+       tags:['ielts','study'],created:Date.now()-86400000}],
+    hobbies:[
+      {id:uid(),icon:'📖',name:'Reading',desc:'Fiction and self-improvement books — building a daily reading habit.',hours:3},
+      {id:uid(),icon:'📷',name:'Photography',desc:'Street and travel photography on weekends.',hours:2},
+      {id:uid(),icon:'🎵',name:'Music',desc:'Listening playlists and learning a few guitar chords.',hours:4},
+      {id:uid(),icon:'🍳',name:'Cooking',desc:'Trying one new recipe every week.',hours:3}],
+    workSessions:[],
+    timer:{running:false,category:'IELTS Study',startedAt:null,elapsed:0},
+    education:{
+      goal:'IELTS preparation',
+      targetDate:'',
+      technologies:[
+        {id:uid(),name:'Python',level:0},
+        {id:uid(),name:'PHP',level:0},
+        {id:uid(),name:'CSS',level:0},
+        {id:uid(),name:'HTML',level:0},
+        {id:uid(),name:'JavaScript',level:0},
+        {id:uid(),name:'SQL',level:0}
+      ],
+      tasks:[
+        {id:uid(),title:'Build IELTS vocabulary',done:false},
+        {id:uid(),title:'Complete one reading practice',done:false},
+        {id:uid(),title:'Write and review one essay',done:false}
+      ]
+    },
+    ielts:{reading:0,writing:0,listening:0,speaking:0,target:7.0},
+    notes:[{id:uid(),title:'Welcome note',body:'Use this section for ideas, formulas, deadlines, and daily reminders.',created:Date.now(),pinned:true}],
+    activity:{},
+    quiz:{taken:0,best:0},
+    wod:{date:'',id:0},
+    settings:{theme:'light'}
+  };
+}
+let S=loadState();
+function normalizeState(o){
+  const seed=seedState();
+  return {
+    ...seed,
+    ...o,
+    profile:{...seed.profile,...(o.profile||{})},
+    quiz:{...seed.quiz,...(o.quiz||{})},
+    wod:{...seed.wod,...(o.wod||{})},
+    settings:{...seed.settings,...(o.settings||{})},
+    journal:Array.isArray(o.journal)?o.journal:seed.journal,
+    hobbies:Array.isArray(o.hobbies)?o.hobbies:seed.hobbies,
+    workSessions:Array.isArray(o.workSessions)?o.workSessions:seed.workSessions,
+    timer:{...seed.timer,...(o.timer||{})},
+    education:{
+      ...seed.education,
+      ...(o.education||{}),
+      tasks:Array.isArray(o.education?.tasks)?o.education.tasks:seed.education.tasks,
+      technologies:Array.isArray(o.education?.technologies)?o.education.technologies:seed.education.technologies
+    },
+    ielts:{...seed.ielts,...(o.ielts||{})},
+    notes:Array.isArray(o.notes)?o.notes:seed.notes,
+    vocabStatus:typeof o.vocabStatus==='object'&&o.vocabStatus?o.vocabStatus:{},
+    activity:typeof o.activity==='object'&&o.activity?o.activity:{}
+  };
+}
+function loadState(){
+  try{
+    const raw=localStorage.getItem(LSKEY);
+    if(raw)return normalizeState(JSON.parse(raw));
+  }catch(e){console.error('Could not read the browser backup.',e);}
+  return seedState();
+}
+const API_ENABLED=location.protocol==='http:'||location.protocol==='https:';
+let serverReady=false,serverSaveQueue=Promise.resolve(),saveErrorShown=false;
+function setStorageStatus(mode,label,title){
+  const el=$('#storageStatus');if(!el)return;
+  el.dataset.mode=mode;el.textContent=label;el.title=title;
+}
+async function writeServerState(serialized){
+  const response=await fetch('/api/state',{
+    method:'PUT',
+    headers:{'Content-Type':'application/json'},
+    body:serialized
+  });
+  if(!response.ok){
+    const result=await response.json().catch(()=>({}));
+    throw new Error(result.error||'Server save failed with status '+response.status);
+  }
+}
+function save(){
+  const serialized=JSON.stringify(S);
+  try{localStorage.setItem(LSKEY,serialized);}
+  catch(e){console.error('Could not write browser backup.',e);toast('Browser backup could not be saved','⚠️');}
+  if(!serverReady)return;
+  serverSaveQueue=serverSaveQueue.then(async()=>{
+    await writeServerState(serialized);
+    saveErrorShown=false;
+    setStorageStatus('server','SQLite saved','Saved in the local SQLite database');
+  }).catch(e=>{
+    console.error('Could not save to the local SQLite database.',e);
+    setStorageStatus('error','Save issue','Could not save to SQLite; the browser backup is still available');
+    if(!saveErrorShown){toast('SQLite save failed; browser backup kept','⚠️');saveErrorShown=true;}
+  });
+}
+const firstRun=!localStorage.getItem(LSKEY);
+async function connectToServer(){
+  const cachedRaw=localStorage.getItem(LSKEY);
+  try{
+    setStorageStatus('local','Connecting','Connecting to the local SQLite database');
+    const response=await fetch('/api/state',{cache:'no-store'});
+    if(!response.ok)throw new Error('Database load failed with status '+response.status);
+    const result=await response.json();
+    if(result.state){
+      S=normalizeState(result.state);
+    }else{
+      S=cachedRaw?normalizeState(JSON.parse(cachedRaw)):S;
+      await writeServerState(JSON.stringify(S));
+    }
+    serverReady=true;
+    localStorage.setItem(LSKEY,JSON.stringify(S));
+    setStorageStatus('server','SQLite saved','Saved in the local SQLite database');
+    applyTheme();route();
+    if(!result.state&&!cachedRaw)setTimeout(()=>toast('Welcome! Your data is stored in SQLite on this device 👋','🌈'),600);
+  }catch(e){
+    console.error('Could not connect to local SQLite storage.',e);
+    setStorageStatus('error','Browser only','SQLite is unavailable; using browser storage');
+    route();
+    toast('SQLite unavailable; changes stay in this browser','⚠️');
+  }
+}
+function touchActivity(kind){
+  const k=dayKey(new Date());
+  if(!S.activity[k])S.activity[k]={};
+  S.activity[k][kind]=(S.activity[k][kind]||0)+1;
+  save();
+}
+function streakDays(){
+  let n=0;const d=new Date();
+  if(!S.activity[dayKey(d)])d.setDate(d.getDate()-1);
+  while(S.activity[dayKey(d)]){n++;d.setDate(d.getDate()-1);}
+  return n;
+}
+
+/* ============ theme / router / nav ============ */
+function applyTheme(){
+  document.documentElement.dataset.theme=S.settings.theme||'light';
+  const b=$('#themeBtn');if(b)b.textContent=S.settings.theme==='dark'?'☀️':'🌙';
+}
+function toggleTheme(){
+  S.settings.theme=S.settings.theme==='dark'?'light':'dark';save();applyTheme();
+}
+function closeSidebar(){$('#sidebar').classList.remove('open');$('#scrim').classList.remove('show');}
+
+const ROUTES={
+  '#/dashboard':['Dashboard',renderDashboard],
+  '#/portfolio':['Portfolio',renderPortfolio],
+  '#/education':['Education & Work',renderEducation],
+  '#/vocab':['IELTS Vocabulary',renderVocab],
+  '#/ielts':['IELTS Skills',renderIelts],
+  '#/journal':['Daily Journal',renderJournal],
+  '#/hobbies':['Hobbies',renderHobbies],
+  '#/notes':['Notes',renderNotes],
+  '#/settings':['Settings',renderSettings]
+};
+function route(){
+  let h=location.hash||'#/dashboard';
+  if(!ROUTES[h])h='#/dashboard';
+  const t=ROUTES[h];
+  $$('.view').forEach(v=>v.classList.remove('active'));
+  const sec=$('#view-'+h.slice(2));if(sec)sec.classList.add('active');
+  $('#topTitle').textContent=t[0];
+  $$('.nav a, .bottomnav a').forEach(a=>a.classList.toggle('active',a.getAttribute('href')===h));
+  t[1]();
+  window.scrollTo(0,0);
+  closeSidebar();
+}
+function rerender(){route();}
+/* ============ dashboard ============ */
+function wordOfDay(){
+  if(!S.wod||S.wod.date!==today()){
+    S.wod={date:today(),id:Math.floor(Math.random()*WORDS.length)};save();
+  }
+  return WORDS[S.wod.id];
+}
+function renderDashboard(){
+  const nm=(S.profile.name||'').trim();
+  const hr=new Date().getHours();
+  const part=hr<12?'morning':hr<18?'afternoon':'evening';
+  const greet=nm?('Good '+part+', '+esc(nm)+'!'):('Good '+part+'! 👋');
+  const mastered=WORDS.filter(w=>statusOf(w.id)==='mastered').length;
+  const focusedToday=formatDuration(todayWorkTime());
+  const w=wordOfDay();
+  const topicBars=TOPICS.map(tp=>{
+    const ws=WORDS.filter(x=>x.topic===tp);
+    const m=ws.filter(x=>statusOf(x.id)==='mastered').length;
+    const pct=Math.round(m/ws.length*100);
+    return '<div><div class="row" style="justify-content:space-between;margin-bottom:5px"><span style="font-size:.82rem;font-weight:700">'+esc(tp)+'</span><span class="muted" style="font-size:.75rem">'+m+'/'+ws.length+'</span></div><div class="bar"><i style="width:'+pct+'%"></i></div></div>';
+  }).join('');
+  const recent=S.journal.slice().sort((a,b)=>b.created-a.created).slice(0,2).map(e=>
+    '<div class="card" style="cursor:pointer" onclick="location.hash=\'#/journal\'"><div class="row"><span class="mood-lg">'+e.mood+'</span><div style="min-width:0"><div style="font-weight:800;font-size:.92rem">'+esc(e.title)+'</div><div class="muted" style="font-size:.76rem">'+fmtDate(e.date)+'</div></div></div></div>'
+  ).join('')||'<div class="card empty">No entries yet — write your first one!</div>';
+  $('#dashRoot').innerHTML=`
+  <div class="row mb">
+    <div><h1 class="h1">${greet}</h1><p class="sub">${fmtDate(today())} · your day at a glance</p></div>
+  </div>
+  <div class="stats mb">
+    <div class="stat"><div class="num">${mastered}<span class="muted" style="font-size:.9rem">/${WORDS.length}</span></div><div class="lbl">WORDS MASTERED</div></div>
+    <div class="stat"><div class="num">${S.journal.length}</div><div class="lbl">JOURNAL ENTRIES</div></div>
+    <div class="stat"><div class="num">${streakDays()}🔥</div><div class="lbl">DAY STREAK</div></div>
+    <div class="stat"><div class="num">${S.quiz.taken?S.quiz.best+'%':'—'}</div><div class="lbl">BEST QUIZ · ${S.quiz.taken} TAKEN</div></div>
+    <div class="stat" onclick="location.hash='#/education'" style="cursor:pointer"><div class="num" id="dashWorkTime">${focusedToday}</div><div class="lbl">FOCUSED TODAY · WORK &amp; STUDY</div></div>
+  </div>
+  <div class="grid g2">
+    <div class="wod">
+      <div class="row" style="justify-content:space-between">
+        <span class="chip">WORD OF THE DAY</span>
+        <button class="btn sm" style="background:rgba(255,255,255,.2);color:#fff;box-shadow:none" onclick="shuffleWod()" title="New word">🔄</button>
+      </div>
+      <div style="font-size:clamp(1.4rem,4vw,1.9rem);font-weight:800;margin:10px 0 6px">${esc(w.w)} <span style="font-weight:500;font-size:1rem;font-style:italic">(${esc(w.pos)})</span></div>
+      <div class="row"><span class="chip">${esc(w.topic)}</span><span class="chip">${BANDS[w.band-1]}</span></div>
+      <p id="wodDef" style="display:none;margin-top:10px;font-size:.92rem;line-height:1.6">“${esc(w.def)}”<br><i style="opacity:.85">“${esc(w.ex)}”</i></p>
+      <div class="row mt"><button class="btn sm" style="background:rgba(255,255,255,.2);color:#fff;box-shadow:none" onclick="revealWod(this)">💡 Reveal meaning</button></div>
+    </div>
+    <div class="card">
+      <h2 class="h2 mb">📈 Topic progress</h2>
+      <div class="grid" style="gap:10px">${topicBars}</div>
+    </div>
+  </div>
+  <div class="card mt">
+    <h2 class="h2 mb">⚡ Quick actions</h2>
+    <div class="row">
+      <button class="btn sm" onclick="goVocab('flash')">🃏 Review flashcards</button>
+      <button class="btn sm" onclick="goVocab('quiz')">✅ Take a quiz</button>
+      <button class="btn sm ghost" onclick="location.hash='#/education'">⏱ Start work timer</button>
+      <button class="btn sm ghost" onclick="location.hash='#/ielts'">🇬🇧 IELTS skills</button>
+      <button class="btn sm ghost" onclick="location.hash='#/journal'">📓 New journal entry</button>
+      <button class="btn sm ghost" onclick="location.hash='#/portfolio'">🪪 Edit portfolio</button>
+    </div>
+  </div>
+  <div class="mt">
+    <div class="row mb"><h2 class="h2">Recent journal</h2><a href="#/journal" style="margin-left:auto;font-size:.85rem;font-weight:700">View all →</a></div>
+    ${recent}
+  </div>`;
+}
+function revealWod(button){
+  const d=$('#wodDef');
+  const b=button;
+  if(!d)return;
+  const show=d.style.display==='none';
+  d.style.display=show?'block':'none';
+  if(b)b.textContent=show?'🙈 Hide meaning':'💡 Reveal meaning';
+}
+function shuffleWod(){S.wod={date:today(),id:Math.floor(Math.random()*WORDS.length)};save();renderDashboard();}
+function goVocab(tab){vocabTab=tab;location.hash='#/vocab';}
+
+/* ============ portfolio ============ */
+let pEdit=false;
+function renderPortfolio(){
+  const p=S.profile;
+  const about=pEdit?`
+    <div class="card mb">
+      <h2 class="h2 mb">About me</h2>
+      <label class="field">NAME<input class="input" id="pfName" value="${esc(p.name)}" placeholder="Your name"></label>
+      <label class="field">TITLE / ROLE<input class="input" id="pfRole" value="${esc(p.role)}"></label>
+      <label class="field">BIO<textarea class="textarea" id="pfBio" style="min-height:90px">${esc(p.bio)}</textarea></label>
+    </div>`:`
+    <div class="card mb">
+      <h2 class="h2">${esc(p.name)||'Your name'}</h2>
+      <div class="sub" style="font-weight:700;margin:2px 0 8px">${esc(p.role)}</div>
+      <p style="font-size:.94rem">${esc(p.bio)}</p>
+    </div>`;
+  const skills=p.skills.map((s,i)=>{
+    if(pEdit)return '<div class="skillrow"><input class="input" style="flex:1;min-width:110px" value="'+esc(s.name)+'" oninput="updSkill('+i+',\'name\',this.value)"><input type="range" min="0" max="100" value="'+s.level+'" style="width:110px" oninput="updSkill('+i+',\'level\',+this.value)"><span class="chip gray" style="min-width:44px;justify-content:center">'+s.level+'%</span><button class="icon-btn" title="Remove" onclick="delSkill('+i+')">🗑</button></div>';
+    return '<div class="skillrow"><span style="min-width:130px;font-weight:700;font-size:.9rem">'+esc(s.name)+'</span><div class="bar"><i style="width:'+s.level+'%"></i></div><span class="muted" style="font-size:.78rem;min-width:34px;text-align:right">'+s.level+'%</span></div>';
+  }).join('');
+  const projects=p.projects.map((pr,i)=>{
+    if(pEdit)return '<div class="projcard">'+
+      '<label class="field">TITLE<input class="input" value="'+esc(pr.title)+'" oninput="updProj('+i+',\'title\',this.value)"></label>'+
+      '<label class="field">DESCRIPTION<textarea class="textarea" style="min-height:70px" oninput="updProj('+i+',\'desc\',this.value)">'+esc(pr.desc)+'</textarea></label>'+
+      '<div class="row"><label class="field" style="flex:1;min-width:120px">TECH / TAGS<input class="input" value="'+esc(pr.tech)+'" oninput="updProj('+i+',\'tech\',this.value)"></label><label class="field" style="width:100px">YEAR<input class="input" value="'+esc(pr.year)+'" oninput="updProj('+i+',\'year\',this.value)"></label></div>'+
+      '<label class="field">LINK (optional)<input class="input" value="'+esc(pr.link)+'" placeholder="https://" oninput="updProj('+i+',\'link\',this.value)"></label>'+
+      '<button class="btn danger sm" onclick="delProj('+i+')">🗑 Remove project</button></div>';
+    const link=pr.link?'<a href="'+esc(pr.link)+'" target="_blank" rel="noopener" style="font-size:.85rem;font-weight:700">Open link ↗</a>':'';
+    const tech=pr.tech?pr.tech.split(/,\s*/).filter(Boolean).map(t=>'<span class="chip gray">'+esc(t)+'</span>').join(''):'';
+    return '<div class="projcard"><div class="row" style="justify-content:space-between"><h3 style="font-size:1rem;font-weight:800">'+esc(pr.title)+'</h3><span class="chip">'+esc(pr.year)+'</span></div><p class="sub" style="font-size:.88rem">'+esc(pr.desc)+'</p><div class="row">'+tech+'<span class="spacer"></span>'+link+'</div></div>';
+  }).join('');
+  $('#pfRoot').innerHTML=`
+    <div class="row mb">
+      <div><h1 class="h1">🪪 Portfolio</h1><p class="sub">Introduce yourself, your skills and the things you have built.</p></div>
+      <span class="spacer"></span>
+      ${pEdit?'<button class="btn sm ghost" onclick="pEdit=false;renderPortfolio()">Cancel</button><button class="btn sm" onclick="saveProfile()">💾 Save</button>':'<button class="btn sm ghost" onclick="pEdit=true;renderPortfolio()">✏️ Edit</button>'}
+    </div>
+    ${about}
+    <div class="card">
+      <h2 class="h2 mb">🛠 Skills</h2>
+      ${skills||'<p class="muted" style="font-size:.9rem">No skills yet.</p>'}
+      ${pEdit?'<button class="btn sm ghost mt" onclick="addSkill()">＋ Add skill</button>':''}
+    </div>
+    <div class="mt">
+      <div class="row mb"><h2 class="h2">💼 Projects</h2>${pEdit?'<button class="btn sm ghost" style="margin-left:auto" onclick="addProj()">＋ Add project</button>':''}</div>
+      <div class="grid g3">${projects||'<div class="card empty">No projects yet.</div>'}</div>
+    </div>`;
+}
+function saveProfile(){
+  const n=$('#pfName'),r=$('#pfRole'),b=$('#pfBio');
+  if(n)S.profile.name=n.value.trim();
+  if(r)S.profile.role=r.value.trim();
+  if(b)S.profile.bio=b.value.trim();
+  save();pEdit=false;renderPortfolio();toast('Portfolio saved','🪪');
+}
+function updSkill(i,k,v){S.profile.skills[i][k]=v;save();
+  if(k==='level'){const rows=$$('#pfRoot .skillrow');if(rows[i]){const bar=rows[i].querySelector('.bar>i');if(bar)bar.style.width=v+'%';const chip=rows[i].querySelector('.chip');if(chip)chip.textContent=v+'%';}}}
+function delSkill(i){S.profile.skills.splice(i,1);save();renderPortfolio();toast('Skill removed','🗑');}
+function addSkill(){S.profile.skills.push({name:'New skill',level:50});save();renderPortfolio();}
+function updProj(i,k,v){S.profile.projects[i][k]=v;save();}
+function delProj(i){S.profile.projects.splice(i,1);save();renderPortfolio();toast('Project removed','🗑');}
+function addProj(){S.profile.projects.push({title:'New project',desc:'',tech:'',year:String(new Date().getFullYear()),link:''});save();renderPortfolio();}
+
+/* ============ education and work timer ============ */
+function formatDuration(ms){
+  const seconds=Math.max(0,Math.floor(ms/1000));
+  const h=Math.floor(seconds/3600),m=Math.floor((seconds%3600)/60),s=seconds%60;
+  return h+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+}
+function todayWorkTime(){
+  const startOfDay=new Date();startOfDay.setHours(0,0,0,0);
+  const saved=S.workSessions.filter(s=>dayKey(s.startedAt||Date.now())===today()).reduce((sum,s)=>sum+(s.duration||0),0);
+  const current=S.timer.running&&S.timer.startedAt?Math.max(0,Date.now()-Math.max(S.timer.startedAt,startOfDay.getTime())):0;
+  return saved+current;
+}
+function timerElapsed(){const t=S.timer;return (t.elapsed||0)+(t.running&&t.startedAt?Date.now()-t.startedAt:0);}
+function renderEducation(){
+  const elapsed=timerElapsed();
+  const todayMs=todayWorkTime();
+  const totalMs=S.workSessions.reduce((sum,s)=>sum+(s.duration||0),0)+(S.timer.running?elapsed:0);
+  const sessionRows=S.workSessions.slice().sort((a,b)=>b.startedAt-a.startedAt).slice(0,12).map(s=>
+    '<div class="session-row"><span style="font-size:1.15rem">⏱</span><div style="flex:1;min-width:0"><div style="font-weight:800">'+esc(s.category)+'</div><div class="muted" style="font-size:.75rem">'+fmtDate(dayKey(s.startedAt))+' · '+new Date(s.startedAt).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})+'</div></div><strong>'+formatDuration(s.duration)+'</strong><button class="icon-btn" title="Delete" onclick="deleteSession(\''+s.id+'\')">🗑</button></div>'
+  ).join('');
+  const tasks=S.education.tasks.map((task,i)=>
+    '<div class="session-row"><button class="mood-btn" style="width:34px;height:34px;font-size:.9rem" onclick="toggleEduTask('+i+')">'+(task.done?'✅':'')+'</button><input class="input" style="flex:1" value="'+esc(task.title)+'" oninput="updateEduTask('+i+',this.value)"><button class="icon-btn" title="Delete" onclick="deleteEduTask('+i+')">🗑</button></div>'
+  ).join('');
+  const timerCategories=['IELTS Study','Reading','Writing','Listening','Speaking','Education','Work'].concat(S.education.technologies.map(t=>'Coding · '+t.name));
+  const technologyCards=S.education.technologies.map(t=>{
+    const time=S.workSessions.filter(s=>s.category==='Coding · '+t.name).reduce((sum,s)=>sum+(s.duration||0),0);
+    return '<div class="tech-item"><div class="row"><strong style="flex:1">'+esc(t.name)+'</strong><span class="chip gray">'+formatDuration(time)+'</span><button class="icon-btn" title="Remove skill" onclick="deleteTechnology(\''+t.id+'\')">🗑</button></div><label class="field mt">LEARNING PROGRESS <output id="techLevel-'+t.id+'">'+t.level+'%</output><input class="input" style="padding:0;margin-top:8px" type="range" min="0" max="100" step="5" value="'+t.level+'" oninput="updateTechnology(\''+t.id+'\',this.value)"></label><div class="bar"><i id="techBar-'+t.id+'" style="width:'+t.level+'%"></i></div><button class="btn sm ghost mt" onclick="startTechSession(\''+t.id+'\')">▶ Study '+esc(t.name)+'</button></div>';
+  }).join('');
+  $('#eduRoot').innerHTML=`
+    <div class="row mb"><div><h1 class="h1">🎓 Education &amp; Work</h1><p class="sub">Plan study goals and track every focused working session.</p></div></div>
+    <div class="grid g2 mb">
+      <div class="card timer-card ${S.timer.running?'timer-running':''}"><span class="chip">${esc(S.timer.category)}</span><div class="timer-value" id="timerValue">${formatDuration(elapsed)}</div>
+        <select class="select" id="timerCategory" style="max-width:230px" ${S.timer.running?'disabled':''}>
+          ${timerCategories.concat(['IELTS Reading','IELTS Writing','IELTS Listening','IELTS Speaking']).map(c=>'<option'+(S.timer.category===c?' selected':'')+'>'+esc(c)+'</option>').join('')}
+        </select>
+        <div class="row">${S.timer.running?'<button class="btn" onclick="stopTimer()">⏹ Save &amp; stop</button>':'<button class="btn" onclick="startTimer()">▶ Start timer</button><button class="btn ghost" onclick="resetTimer()">↺ Reset</button>'}</div>
+      </div>
+      <div class="stats" style="align-content:start"><div class="stat"><div class="num">${formatDuration(todayMs)}</div><div class="lbl">TODAY</div></div><div class="stat"><div class="num">${formatDuration(totalMs)}</div><div class="lbl">ALL TIME</div></div><div class="stat"><div class="num">${S.workSessions.length}</div><div class="lbl">SESSIONS SAVED</div></div></div>
+    </div>
+    <div class="grid g2">
+      <div class="card"><h2 class="h2 mb">🎯 Education goal</h2>
+        <label class="field">MAIN GOAL<input class="input" id="eduGoal" value="${esc(S.education.goal)}" oninput="updateEducation('goal',this.value)"></label>
+        <label class="field">TARGET DATE<input class="input" type="date" value="${esc(S.education.targetDate||'')}" onchange="updateEducation('targetDate',this.value)"></label>
+        <hr class="divider"><div class="row mb"><h3 class="h2">Task checklist</h3><span class="spacer"></span><button class="btn sm ghost" onclick="addEduTask()">＋ Add task</button></div>
+        <div class="session-list">${tasks||'<div class="muted" style="font-size:.85rem">No tasks yet.</div>'}</div>
+      </div>
+      <div class="card"><div class="row mb"><h2 class="h2">Recent sessions</h2><span class="spacer"></span><button class="btn sm ghost" onclick="exportSessions()">⬇️ Export</button></div><div class="session-list">${sessionRows||'<div class="empty"><span class="big">⏱</span>No recorded sessions yet.</div>'}</div></div>
+    </div>`;
+  $('#eduRoot').insertAdjacentHTML('beforeend',`
+    <div class="card mt"><div class="row mb"><div><h2 class="h2">💻 Programming &amp; Web Development</h2><p class="sub">Track your learning progress and record focused coding time for each skill.</p></div></div>
+      <div class="tech-list">${technologyCards}</div>
+      <div class="row mt"><input class="input" id="newTechName" placeholder="Add a language or skill, e.g. Git" style="flex:1;min-width:170px" onkeydown="if(event.key==='Enter')addTechnology()"><button class="btn sm" onclick="addTechnology()">＋ Add skill</button></div>
+    </div>`);
+}
+function startTimer(){const sel=$('#timerCategory');S.timer.category=sel?sel.value:S.timer.category;S.timer.running=true;S.timer.startedAt=Date.now();save();renderEducation();toast('Timer started','▶');}
+function stopTimer(){
+  if(!S.timer.running)return;
+  const duration=timerElapsed();
+  if(duration>=1000)S.workSessions.unshift({id:uid(),category:S.timer.category,startedAt:S.timer.startedAt,duration});
+  S.timer.running=false;S.timer.startedAt=null;S.timer.elapsed=0;
+  touchActivity('study');save();renderEducation();toast('Working session saved','✅');
+}
+function resetTimer(){S.timer.elapsed=0;S.timer.running=false;S.timer.startedAt=null;save();renderEducation();}
+function updateEducation(key,value){S.education[key]=value;save();}
+function addTechnology(){
+  const input=$('#newTechName'),name=input&&input.value.trim();
+  if(!name)return toast('Enter a skill name first','⚠️');
+  if(S.education.technologies.some(t=>t.name.toLowerCase()===name.toLowerCase()))return toast('That skill is already listed','⚠️');
+  S.education.technologies.push({id:uid(),name,level:0});save();renderEducation();toast(name+' added','💻');
+}
+function updateTechnology(id,value){
+  const t=S.education.technologies.find(x=>x.id===id);if(!t)return;
+  t.level=Math.max(0,Math.min(100,Number(value)||0));
+  const out=$('#techLevel-'+id),bar=$('#techBar-'+id);
+  if(out)out.value=t.level+'%';
+  if(bar)bar.style.width=t.level+'%';
+  save();
+}
+function deleteTechnology(id){
+  const t=S.education.technologies.find(x=>x.id===id);if(!t)return;
+  confirmBox('Remove '+t.name+'?','This removes the skill from your tracker. Previously saved work sessions are kept.','Remove',()=>{
+    S.education.technologies=S.education.technologies.filter(x=>x.id!==id);save();renderEducation();toast('Skill removed','🗑');
+  });
+}
+function startTechSession(id){
+  const t=S.education.technologies.find(x=>x.id===id);if(!t)return;
+  if(S.timer.running)return toast('Stop the current timer before starting another','⚠️');
+  S.timer={running:true,category:'Coding · '+t.name,startedAt:Date.now(),elapsed:0};save();renderEducation();toast(t.name+' timer started','▶');
+}
+function toggleEduTask(i){S.education.tasks[i].done=!S.education.tasks[i].done;save();renderEducation();}
+function updateEduTask(i,value){S.education.tasks[i].title=value;save();}
+function deleteEduTask(i){S.education.tasks.splice(i,1);save();renderEducation();}
+function addEduTask(){S.education.tasks.push({id:uid(),title:'New study task',done:false});save();renderEducation();}
+function deleteSession(id){S.workSessions=S.workSessions.filter(s=>s.id!==id);save();renderEducation();toast('Session removed','🗑');}
+function exportSessions(){
+  const blob=new Blob([JSON.stringify({exportedAt:new Date().toISOString(),sessions:S.workSessions},null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='study-sessions-'+today()+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),3000);toast('Sessions exported','💾');
+}
+setInterval(()=>{
+  const el=$('#timerValue');if(el&&S.timer.running)el.textContent=formatDuration(timerElapsed());
+  const dash=$('#dashWorkTime');if(dash)dash.textContent=formatDuration(todayWorkTime());
+},1000);
+
+/* ============ IELTS four-skill tracker ============ */
+function renderIelts(){
+  const skills=[['reading','📖','Reading'],['writing','✍️','Writing'],['listening','🎧','Listening'],['speaking','🎙️','Speaking']];
+  const cards=skills.map(([key,icon,name])=>{
+    const score=Number(S.ielts[key])||0;
+    return '<div class="ielts-skill"><h2 class="h2">'+icon+' '+name+'</h2><div class="score-ring" style="--progress:'+score/9*100+'%"><strong>'+ (score||'—')+'</strong></div><label class="field">CURRENT SCORE<input class="input" type="number" min="0" max="9" step="0.5" value="'+score+'" oninput="updateIeltsScore(\''+key+'\',this.value)"></label><button class="btn sm ghost" style="width:100%" onclick="startSkillSession(\''+key+'\')">Start '+name+' timer</button></div>';
+  }).join('');
+  const average=(Number(S.ielts.reading)+Number(S.ielts.writing)+Number(S.ielts.listening)+Number(S.ielts.speaking))/4;
+  $('#ieltsRoot').innerHTML=`
+    <div class="row mb"><div><h1 class="h1">🇬🇧 IELTS Skills</h1><p class="sub">Track Reading, Writing, Listening and Speaking scores.</p></div></div>
+    <div class="card mb"><div class="row" style="align-items:flex-end"><div><span class="muted" style="font-size:.75rem;font-weight:800">OVERALL BAND</span><div style="font-size:2.2rem;font-weight:850">${(S.ielts.reading||S.ielts.writing||S.ielts.listening||S.ielts.speaking)?average.toFixed(1):'—'}</div></div><span class="spacer"></span><label class="field" style="width:min(180px,100%)">TARGET BAND<input class="input" type="number" min="0" max="9" step="0.5" value="${S.ielts.target||7}" oninput="updateIeltsTarget(this.value)"></label></div></div>
+    <div class="skill-grid">${cards}</div>`;
+}
+function updateIeltsScore(key,value){S.ielts[key]=Math.max(0,Math.min(9,Number(value)||0));save();renderIelts();}
+function updateIeltsTarget(value){S.ielts.target=Math.max(0,Math.min(9,Number(value)||0));save();}
+function startSkillSession(name){if(S.timer.running)return toast('Stop the current timer before starting another','⚠️');const labels={reading:'Reading',writing:'Writing',listening:'Listening',speaking:'Speaking'};S.timer={running:true,category:'IELTS '+labels[name],startedAt:Date.now(),elapsed:0};save();location.hash='#/education';}
+
+/* ============ notes ============ */
+let notesSearch='';
+function renderNotes(){
+  const list=S.notes.slice().sort((a,b)=>(b.pinned?1:0)-(a.pinned?1:0)||b.created-a.created).filter(n=>!notesSearch||(n.title+' '+n.body).toLowerCase().includes(notesSearch.toLowerCase())).map(n=>'<div class="note-card" onclick="editNote(\''+n.id+'\')"><div class="row"><h2 class="h2" style="flex:1">'+(n.pinned?'📌 ':'')+esc(n.title||'Untitled note')+'</h2><button class="icon-btn" title="Delete" onclick="event.stopPropagation();deleteNote(\''+n.id+'\')">🗑</button></div><p class="sub mt" style="white-space:pre-wrap;max-height:110px;overflow:hidden">'+esc(n.body)+'</p><div class="muted mt" style="font-size:.72rem">'+fmtDate(dayKey(n.created))+'</div></div>').join('');
+  $('#notesRoot').innerHTML=`<div class="row mb"><div><h1 class="h1">📝 Notes</h1><p class="sub">Quick ideas, reminders, formulas and plans.</p></div><span class="spacer"></span><button class="btn" onclick="newNote()">＋ New note</button></div><input class="input mb" placeholder="🔍 Search notes…" value="${esc(notesSearch)}" oninput="notesSearch=this.value;renderNotes()"><div class="g3 grid">${list||'<div class="card empty"><span class="big">📝</span>No notes found.</div>'}</div>`;
+}
+function newNote(){openNoteEditor(null);}
+function editNote(id){openNoteEditor(S.notes.find(n=>n.id===id));}
+function openNoteEditor(note){
+  const n=note||{title:'',body:'',pinned:false};
+  modal('<h2 class="h2">'+(note?'Edit note':'New note')+'</h2><label class="field mt">TITLE<input class="input" id="noteTitle" value="'+esc(n.title)+'" placeholder="Note title"></label><label class="field">NOTE<textarea class="textarea" id="noteBody" placeholder="Write anything…">'+esc(n.body)+'</textarea></label><label class="row mt"><input type="checkbox" id="notePinned" '+(n.pinned?'checked':'')+'> Pin this note</label><div class="row mt" style="justify-content:flex-end"><button class="btn ghost sm" data-close>Cancel</button><button class="btn sm" onclick="saveNote('+ (note?'\''+n.id+'\'':'null') +')">💾 Save</button></div>');
+}
+function saveNote(id){
+  const title=$('#noteTitle').value.trim(),body=$('#noteBody').value.trim();
+  if(!title&&!body){toast('Write something first','⚠️');return;}
+  if(id){const n=S.notes.find(x=>x.id===id);if(n){n.title=title;n.body=body;n.pinned=$('#notePinned').checked;n.updated=Date.now();}}
+  else S.notes.unshift({id:uid(),title,body,pinned:$('#notePinned').checked,created:Date.now()});
+  save();closeModal();renderNotes();toast(id?'Note updated':'Note saved','📝');
+}
+function deleteNote(id){confirmBox('Delete note?','This note will be permanently removed.','Delete',()=>{S.notes=S.notes.filter(n=>n.id!==id);save();renderNotes();toast('Note deleted','🗑');});}
+
+/* ============ hobbies ============ */
+let hEdit=false;
+function renderHobbies(){
+  const cards=S.hobbies.map((h,i)=>{
+    if(hEdit)return '<div class="hobby">'+
+      '<div class="row"><input class="input" style="width:64px;text-align:center;font-size:1.3rem" value="'+esc(h.icon)+'" oninput="updHobby('+i+',\'icon\',this.value)"><input class="input" style="flex:1;min-width:0" value="'+esc(h.name)+'" oninput="updHobby('+i+',\'name\',this.value)"></div>'+
+      '<textarea class="textarea" style="min-height:64px" placeholder="What do you love about it?" oninput="updHobby('+i+',\'desc\',this.value)">'+esc(h.desc)+'</textarea>'+
+      '<div class="row"><label class="field" style="margin:0">HOURS / WEEK<input type="number" min="0" max="80" class="input" value="'+h.hours+'" style="width:84px" oninput="updHobby('+i+',\'hours\',+this.value||0)"></label><span class="spacer"></span><button class="btn danger sm" onclick="delHobby('+i+')">🗑</button></div></div>';
+    return '<div class="hobby"><div class="ico">'+esc(h.icon)+'</div><h3 style="font-size:1.02rem;font-weight:800">'+esc(h.name)+'</h3><p class="sub" style="font-size:.86rem;flex:1">'+esc(h.desc)+'</p><div class="row"><span class="chip">⏱ ≈ '+h.hours+' h / week</span></div></div>';
+  }).join('');
+  $('#hbRoot').innerHTML=`
+    <div class="row mb">
+      <div><h1 class="h1">🎨 Hobbies</h1><p class="sub">The things that keep life interesting outside study and work.</p></div>
+      <span class="spacer"></span>
+      <button class="btn sm ${hEdit?'':'ghost'}" onclick="hEdit=${!hEdit};renderHobbies()">${hEdit?'✅ Done':'✏️ Edit'}</button>
+    </div>
+    ${hEdit?'<div class="card mb" style="font-size:.88rem"><b>Edit mode:</b> tap any field to change it, remove a hobby, or add a new one.</div>':''}
+    <div class="grid g3">${cards}</div>
+    ${hEdit?'<button class="btn sm ghost mt" onclick="addHobby()">＋ Add hobby</button>':''}`;
+}
+function updHobby(i,k,v){S.hobbies[i][k]=v;save();}
+function delHobby(i){S.hobbies.splice(i,1);save();renderHobbies();toast('Hobby removed','🗑');}
+function addHobby(){S.hobbies.push({id:uid(),icon:'✨',name:'New hobby',desc:'Describe why you love it.',hours:1});save();renderHobbies();}
+/* ============ vocabulary ============ */
+function statusOf(id){return S.vocabStatus[id]||'new';}
+function setStatus(id,st){S.vocabStatus[id]=st;save();}
+let vocabTab='browse';
+let browse={q:'',topic:'all',status:'all'};
+let fc=null,qz=null;
+
+function renderVocab(){
+  const tabs=[['browse','🔍 Browse'],['flash','🃏 Flashcards'],['quiz','✅ Quiz'],['progress','📈 Progress']]
+    .map(t=>'<button class="tab '+(vocabTab===t[0]?'active':'')+'" onclick="vocabTab=\''+t[0]+'\';renderVocab()">'+t[1]+'</button>').join('');
+  $('#vocRoot').innerHTML=`
+    <div class="row mb"><div><h1 class="h1">📚 IELTS Vocabulary</h1><p class="sub">${WORDS.length} academic words · ${TOPICS.length} topics · tap a word for details</p></div></div>
+    <div class="tabs">${tabs}</div>
+    ${vocabTab==='browse'?browseHTML():vocabTab==='flash'?flashHTML():vocabTab==='quiz'?quizHTML():progressHTML()}`;
+  if(vocabTab==='browse')wireBrowse();
+}
+
+/* --- browse --- */
+function filteredWords(){
+  const q=browse.q.toLowerCase();
+  return WORDS.filter(w=>
+    (browse.topic==='all'||w.topic===browse.topic)&&
+    (browse.status==='all'||statusOf(w.id)===browse.status)&&
+    (!q||(w.w+' '+w.def+' '+w.syn.join(' ')).toLowerCase().includes(q)));
+}
+function browseHTML(){
+  const opts=TOPICS.map(t=>'<option value="'+esc(t)+'">'+esc(t)+'</option>').join('');
+  return `<div class="card">
+    <div class="row mb">
+      <input class="input" id="bq" placeholder="Search word or meaning…" style="flex:1;min-width:150px" value="${esc(browse.q)}">
+      <select class="select" id="bTopic" style="flex:0 1 175px"><option value="all">All topics</option>${opts}</select>
+      <select class="select" id="bStatus" style="flex:0 1 140px">
+        <option value="all">Any status</option>
+        <option value="new"${browse.status==='new'?' selected':''}>New</option>
+        <option value="learning"${browse.status==='learning'?' selected':''}>Learning</option>
+        <option value="mastered"${browse.status==='mastered'?' selected':''}>Mastered</option>
+      </select>
+    </div>
+    <div class="muted mb" id="bCount" style="font-size:.78rem;font-weight:700"></div>
+    <div class="wordlist" id="bList"></div>
+  </div>`;
+}
+function renderBrowseList(){
+  const list=filteredWords();
+  const count=$('#bCount');if(!count)return;
+  count.textContent=list.length+' word'+(list.length===1?'':'s');
+  $('#bList').innerHTML=list.map(w=>{
+    const st=statusOf(w.id);
+    return '<div class="wordrow" onclick="openWord('+w.id+')">'+
+      '<span class="w-word">'+esc(w.w)+'<span class="w-pos">'+esc(w.pos)+'</span></span>'+
+      '<span class="w-def">'+esc(w.def)+'</span>'+
+      '<span class="w-chips"><span class="chip gray">'+esc(w.topic)+'</span><span class="chip '+(STATUS_CHIP[st]||'')+'">'+(st==='new'?'New':st==='learning'?'Learning':'Mastered')+'</span></span></div>';
+  }).join('')||'<div class="empty"><span class="big">🔍</span>No words match your filters.</div>';
+}
+function wireBrowse(){
+  const qi=$('#bq');if(!qi)return;
+  qi.addEventListener('input',e=>{browse.q=e.target.value;renderBrowseList();});
+  $('#bTopic').addEventListener('change',e=>{browse.topic=e.target.value;renderBrowseList();});
+  $('#bStatus').addEventListener('change',e=>{browse.status=e.target.value;renderBrowseList();});
+  renderBrowseList();
+}
+function openWord(id){
+  const w=WORDS[id];const st=statusOf(id);
+  modal('<div class="row" style="justify-content:space-between;align-items:flex-start">'+
+    '<div><h2 class="h2" style="font-size:1.3rem">'+esc(w.w)+'</h2><span class="w-pos">('+esc(w.pos)+')</span></div>'+
+    '<button class="icon-btn" data-close aria-label="Close">✕</button></div>'+
+    '<div class="row mt"><span class="chip">'+esc(w.topic)+'</span><span class="chip amber">'+BANDS[w.band-1]+'</span></div>'+
+    '<p class="mt"><b>Definition.</b> '+esc(w.def)+'</p>'+
+    '<p class="mt"><b>Example.</b> <i>“'+esc(w.ex)+'”</i></p>'+
+    (w.syn.length?'<p class="mt"><b>Synonyms.</b> '+w.syn.map(esc).join(', ')+'</p>':'')+
+    '<hr class="divider">'+
+    '<div class="row">'+['new','learning','mastered'].map(s=>
+      '<button class="btn sm '+(st===s?'':'ghost')+'" '+(st===s?'disabled':'')+' onclick="setStatus('+w.id+',\''+s+'\');openWord('+w.id+')">'+STATUS_LABEL[s]+'</button>').join('')+'</div>');
+}
+
+/* --- flashcards --- */
+function flashHTML(){
+  const topicSel=TOPICS.map(t=>'<option value="'+esc(t)+'">'+esc(t)+'</option>').join('');
+  if(!fc){
+    return `<div class="card"><h2 class="h2 mb">🃏 Flashcards</h2>
+      <p class="sub mb">Review words as cards — tap the card to flip it. “Got it” moves a word up a level; “Again” sends it back for review. New and learning words come first in every session.</p>
+      <div class="row"><select class="select" id="fcTopic" style="flex:0 1 210px"><option value="all">All topics</option>${topicSel}</select>
+      <button class="btn" onclick="startFlash()">▶ Start session</button></div>
+      <p class="muted mt" style="font-size:.8rem">${WORDS.length} words available · ✅ mastered ${WORDS.filter(w=>statusOf(w.id)==='mastered').length}</p></div>`;
+  }
+  if(fc.i>=fc.deck.length){
+    return `<div class="card fc-stage">
+      <div style="font-size:2.4rem">🎉</div>
+      <h2 class="h2">Session complete!</h2>
+      <p class="sub">${fc.deck.length} cards reviewed · ✅ ${fc.got} got it · ❌ ${fc.again} again · ⏭ ${fc.skip} skipped</p>
+      <div class="row"><button class="btn" onclick="startFlash()">🔁 Another round</button>
+      <button class="btn ghost" onclick="fc=null;renderVocab()">Choose another topic</button></div></div>`;
+  }
+  const w=WORDS[fc.deck[fc.i]];const st=statusOf(w.id);
+  return `<div class="card" style="display:flex;flex-direction:column;gap:14px;align-items:center">
+    <div class="row" style="width:100%"><span class="chip gray">Card ${fc.i+1} / ${fc.deck.length}</span><span class="chip green">✅ ${fc.got}</span><span class="chip red">❌ ${fc.again}</span><span class="spacer"></span><button class="btn sm ghost" onclick="fc=null;renderVocab()">✕ End</button></div>
+    <div class="bar" style="width:100%"><i style="width:${Math.round(fc.i/fc.deck.length*100)}%"></i></div>
+    <div class="fc" id="fcCard" onclick="this.classList.toggle('flipped')">
+      <div class="fc-inner">
+        <div class="fc-face"><span class="chip">${esc(w.topic)}</span><div class="fc-word">${esc(w.w)}</div><div class="w-pos" style="font-size:.95rem">(${esc(w.pos)})</div><div class="fc-hint">tap card to flip</div></div>
+        <div class="fc-face back">
+          <div style="font-weight:800;font-size:1.15rem">${esc(w.w)} <span class="w-pos">(${esc(w.pos)})</span></div>
+          <p style="font-size:.95rem">${esc(w.def)}</p>
+          <p style="font-size:.9rem;font-style:italic">“${esc(w.ex)}”</p>
+          ${w.syn.length?'<p class="muted" style="font-size:.85rem">Synonyms: '+w.syn.map(esc).join(', ')+'</p>':''}
+          <span class="chip ${STATUS_CHIP[st]||''}">${STATUS_LABEL[st]}</span>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="justify-content:center">
+      <button class="btn danger" onclick="fcAnswer(false)">❌ Again</button>
+      <button class="btn ghost" onclick="fcAnswer(null)">⏭ Skip</button>
+      <button class="btn" onclick="fcAnswer(true)">✅ Got it</button>
+    </div>
+  </div>`;
+}
+function startFlash(){
+  const sel=$('#fcTopic');const t=sel?sel.value:'all';
+  const pool=WORDS.filter(w=>t==='all'||w.topic===t);
+  const rank={new:0,learning:1,mastered:2};
+  pool.sort((a,b)=>rank[statusOf(a.id)]-rank[statusOf(b.id)]);
+  fc={deck:pool.map(w=>w.id),i:0,got:0,again:0,skip:0};
+  renderVocab();
+}
+function fcAnswer(res){
+  const id=fc.deck[fc.i];
+  if(res===true){const st=statusOf(id);setStatus(id,st==='new'?'learning':'mastered');fc.got++;}
+  else if(res===false){setStatus(id,'learning');fc.again++;}
+  else fc.skip++;
+  touchActivity('flash');
+  fc.i++;renderVocab();
+}
+
+/* --- quiz --- */
+function quizHTML(){
+  const topicSel=TOPICS.map(t=>'<option value="'+esc(t)+'">'+esc(t)+'</option>').join('');
+  if(!qz){
+    return `<div class="card"><h2 class="h2 mb">✅ Vocabulary quiz</h2>
+      <p class="sub mb">Choose the correct meaning for each word. Correct answers level words up; wrong answers send them back to “learning” for review.</p>
+      <div class="row">
+        <select class="select" id="qzTopic" style="flex:0 1 210px"><option value="all">All topics</option>${topicSel}</select>
+        <select class="select" id="qzLen" style="flex:0 1 150px"><option value="5">5 questions</option><option value="10" selected>10 questions</option><option value="15">15 questions</option></select>
+        <button class="btn" onclick="startQuiz()">▶ Start quiz</button>
+      </div>
+      <p class="muted mt" style="font-size:.8rem">Quizzes taken: ${S.quiz.taken} · best score: ${S.quiz.taken?S.quiz.best+'%':'—'}</p></div>`;
+  }
+  if(qz.done){
+    const pct=Math.round(qz.score/qz.qs.length*100);
+    const wrongList=qz.wrong.map(id=>{
+      const w=WORDS[id];
+      return '<div class="row" style="padding:8px 0;border-bottom:1px dashed var(--line)"><span style="font-weight:800;min-width:130px">'+esc(w.w)+'</span><span class="muted" style="font-size:.85rem;flex:1;min-width:0">'+esc(w.def)+'</span></div>';
+    }).join('');
+    return `<div class="card fc-stage">
+      <div style="font-size:2.4rem">${pct>=80?'🏆':pct>=50?'👏':'💪'}</div>
+      <h2 class="h2">You scored ${qz.score} / ${qz.qs.length} (${pct}%)</h2>
+      <p class="sub">${pct>=80?'Excellent! The words you knew are leveling up.':pct>=50?'Good effort — review the misses below.':'Keep going — review the words below and try again.'}</p>
+      ${wrongList?'<div style="width:100%;max-width:460px;text-align:left"><h3 class="h2" style="font-size:.95rem;margin-bottom:6px">Words to review</h3>'+wrongList+'</div>':''}
+      <div class="row"><button class="btn" onclick="startQuiz()">🔁 Retry</button><button class="btn ghost" onclick="qz=null;renderVocab()">New quiz</button></div>
+    </div>`;
+  }
+  const q=qz.qs[qz.i];const w=WORDS[q.wid];
+  const opts=q.opts.map((oid,k)=>{
+    let cls='quizopt';
+    if(qz.chosen>=0){if(oid===q.wid)cls+=' correct';else if(k===qz.chosen)cls+=' wrong';}
+    return '<button class="'+cls+'" '+(qz.chosen>=0?'disabled':'')+' onclick="pickAnswer('+k+')"><span class="qletter">'+'ABCD'[k]+'</span><span>'+esc(WORDS[oid].def)+'</span></button>';
+  }).join('');
+  return `<div class="card">
+    <div class="row mb"><span class="chip gray">Question ${qz.i+1} / ${qz.qs.length}</span><span class="chip">Score ${qz.score}</span></div>
+    <h2 class="h2" style="font-size:1.35rem">${esc(w.w)}</h2>
+    <div class="w-pos mb">(${esc(w.pos)}) · ${esc(w.topic)}</div>
+    <div class="grid" style="gap:10px">${opts}</div>
+    ${qz.chosen>=0?'<div class="row mt"><span class="spacer"></span><button class="btn" onclick="nextQ()">'+(qz.i+1<qz.qs.length?'Next →':'See results')+'</button></div>':''}
+  </div>`;
+}
+function startQuiz(){
+  const t=$('#qzTopic')?$('#qzTopic').value:'all';
+  const n=$('#qzLen')?+$('#qzLen').value:10;
+  const pool=shuffle(WORDS.filter(w=>t==='all'||w.topic===t)).slice(0,n);
+  qz={qs:pool.map(w=>{
+    const others=shuffle(WORDS.filter(x=>x.id!==w.id)).slice(0,3);
+    const opts=shuffle([w.id].concat(others.map(o=>o.id)));
+    return {wid:w.id,opts,ans:opts.indexOf(w.id)};
+  }),i:0,score:0,chosen:-1,done:false,wrong:[]};
+  renderVocab();
+}
+function pickAnswer(k){
+  const q=qz.qs[qz.i];qz.chosen=k;
+  const ok=k===q.ans;
+  if(ok)qz.score++;else qz.wrong.push(q.wid);
+  const st=statusOf(q.wid);
+  if(ok)setStatus(q.wid,st==='new'?'learning':'mastered');
+  else setStatus(q.wid,'learning');
+  touchActivity('quiz');
+  renderVocab();
+}
+function nextQ(){
+  if(qz.i+1<qz.qs.length){qz.i++;qz.chosen=-1;renderVocab();}
+  else{
+    qz.done=true;
+    S.quiz.taken++;S.quiz.best=Math.max(S.quiz.best,Math.round(qz.score/qz.qs.length*100));save();
+    renderVocab();
+  }
+}
+
+/* --- progress --- */
+function progressHTML(){
+  const counts={new:0,learning:0,mastered:0};
+  WORDS.forEach(w=>counts[statusOf(w.id)]++);
+  const total=WORDS.length;
+  const pct=Math.round(counts.mastered/total*100);
+  const rows=TOPICS.map(tp=>{
+    const ws=WORDS.filter(x=>x.topic===tp);
+    const m=ws.filter(x=>statusOf(x.id)==='mastered').length;
+    const l=ws.filter(x=>statusOf(x.id)==='learning').length;
+    return '<div><div class="row" style="justify-content:space-between;margin-bottom:5px"><span style="font-size:.85rem;font-weight:700">'+esc(tp)+'</span><span class="muted" style="font-size:.75rem">✅ '+m+' · 📖 '+l+' / '+ws.length+'</span></div><div class="bar"><i style="width:'+Math.round(m/ws.length*100)+'%"></i></div></div>';
+  }).join('');
+  const bandRows=[1,2,3].map(b=>{
+    const ws=WORDS.filter(x=>x.band===b);
+    const m=ws.filter(x=>statusOf(x.id)==='mastered').length;
+    return '<div><div class="row" style="justify-content:space-between;margin-bottom:5px"><span style="font-size:.85rem;font-weight:700">'+BANDS[b-1]+'</span><span class="muted" style="font-size:.75rem">'+m+'/'+ws.length+'</span></div><div class="bar"><i style="width:'+(ws.length?Math.round(m/ws.length*100):0)+'%"></i></div></div>';
+  }).join('');
+  const days=Object.keys(S.activity).sort().slice(-7);
+  const act=days.map(d=>'<span class="chip '+(S.activity[d]?'green':'gray')+'">'+d.slice(5)+'</span>').join('');
+  return `<div class="grid g2">
+    <div class="card"><h2 class="h2 mb">📊 Overall</h2>
+      <div class="row" style="justify-content:space-between;margin-bottom:6px"><span style="font-weight:800">${counts.mastered} words mastered</span><span class="muted" style="font-size:.8rem">${pct}%</span></div>
+      <div class="bar big mb"><i style="width:${pct}%"></i></div>
+      <div class="row"><span class="chip">🆕 ${counts.new} new</span><span class="chip amber">📖 ${counts.learning} learning</span><span class="chip green">✅ ${counts.mastered} mastered</span></div>
+    </div>
+    <div class="card"><h2 class="h2 mb">🎯 By level</h2><div class="grid" style="gap:10px">${bandRows}</div></div>
+  </div>
+  <div class="card mt"><h2 class="h2 mb">📚 By topic</h2><div class="grid" style="gap:12px">${rows}</div></div>
+  <div class="card mt"><h2 class="h2 mb">🗓 Recent active days</h2><div class="row">${act||'<span class="muted" style="font-size:.85rem">No activity yet — start with flashcards!</span>'}</div></div>`;
+}
+/* ============ journal ============ */
+const MOODS=['😀','🙂','😐','😕','😔','😴','🤩','😤'];
+let jmood='🙂',jedit=null,jsearch='';
+function renderJournal(){
+  const editing=jedit?S.journal.find(e=>e.id===jedit):null;
+  const moodBtns=MOODS.map(m=>'<button class="mood-btn '+(jmood===m?'sel':'')+'" onclick="jmood=\''+m+'\';renderJournal()">'+m+'</button>').join('');
+  const tags=editing?editing.tags.join(', '):'';
+  const compose=`<div class="card mb">
+    <div class="row mb"><h2 class="h2">${jedit?'✏️ Edit entry':'📓 New entry'}</h2>${jedit?'<button class="btn sm ghost" style="margin-left:auto" onclick="cancelJEdit()">Cancel</button>':''}</div>
+    <div class="row">
+      <input class="input" type="date" id="jDate" style="flex:0 1 170px" value="${editing?esc(editing.date):today()}">
+      <input class="input" id="jTitle" placeholder="Title (optional)" style="flex:1;min-width:150px" value="${editing?esc(editing.title):''}">
+    </div>
+    <div class="row mt"><span class="muted" style="font-size:.8rem;font-weight:700">MOOD</span>${moodBtns}</div>
+    <textarea class="textarea mt" id="jContent" placeholder="How was your day? What did you learn, do, or feel?">${editing?esc(editing.content):''}</textarea>
+    <div class="row mt"><input class="input" id="jTags" placeholder="Tags (comma separated), e.g. ielts, gym" style="flex:1;min-width:150px" value="${esc(tags)}"><span class="muted" id="jCount" style="font-size:.76rem"></span></div>
+    <div class="row mt"><span class="spacer"></span><button class="btn" onclick="saveEntry()">${jedit?'💾 Update entry':'＋ Add entry'}</button></div>
+  </div>`;
+  const list=S.journal.slice().sort((a,b)=>b.created-a.created)
+    .filter(e=>!jsearch||(e.title+' '+e.content+' '+e.tags.join(' ')).toLowerCase().includes(jsearch.toLowerCase()))
+    .map(e=>`<div class="jentry">
+      <div class="jhead"><span class="mood-lg">${e.mood}</span>
+        <div style="min-width:0;flex:1"><div style="font-weight:800">${esc(e.title)||'Untitled entry'}</div><div class="muted" style="font-size:.76rem">${fmtDate(e.date)}</div></div>
+        <button class="btn sm ghost" onclick="editEntry('${e.id}')" title="Edit">✏️</button>
+        <button class="btn sm danger" onclick="delEntry('${e.id}')" title="Delete">🗑</button>
+      </div>
+      <div class="jcontent">${esc(e.content)}</div>
+      ${e.tags.length?'<div class="row mt" style="gap:6px">'+e.tags.map(t=>'<span class="chip gray">#'+esc(t)+'</span>').join('')+'</div>':''}
+    </div>`).join('');
+  $('#jrRoot').innerHTML=`
+    <div class="row mb"><div><h1 class="h1">📓 Daily Journal</h1><p class="sub">Your days, moods and small wins — stored privately on this device.</p></div></div>
+    ${compose}
+    <div class="row mb"><input class="input" id="jSearch" placeholder="🔍 Search entries…" style="flex:1;min-width:150px" value="${esc(jsearch)}"></div>
+    ${list||'<div class="card empty"><span class="big">🌤</span>'+(jsearch?'No entries match your search.':'No entries yet — write your first one above!')+'</div>'}`;
+  $('#jContent').addEventListener('input',updateCount);
+  $('#jSearch').addEventListener('input',e=>{
+    jsearch=e.target.value;renderJournal();
+    const s=$('#jSearch');s.focus();s.setSelectionRange(s.value.length,s.value.length);
+  });
+  updateCount();
+}
+function updateCount(){
+  const el=$('#jCount');if(!el)return;
+  const v=$('#jContent').value.trim();
+  const n=v?v.split(/\s+/).length:0;
+  el.textContent=n?n+' words':'';
+}
+function saveEntry(){
+  const content=$('#jContent').value.trim();
+  if(!content){toast('Write something first ✍️','⚠️');return;}
+  const tags=$('#jTags').value.split(',').map(t=>t.trim().replace(/^#/,'')).filter(Boolean).slice(0,6);
+  if(jedit){
+    const e=S.journal.find(x=>x.id===jedit);
+    if(e){e.date=$('#jDate').value||today();e.title=$('#jTitle').value.trim();e.mood=jmood;e.content=content;e.tags=tags;}
+    jedit=null;toast('Entry updated','📓');
+  }else{
+    S.journal.unshift({id:uid(),date:$('#jDate').value||today(),title:$('#jTitle').value.trim(),mood:jmood,content,tags,created:Date.now()});
+    touchActivity('journal');toast('Entry saved','📓');
+  }
+  save();renderJournal();
+}
+function editEntry(id){const e=S.journal.find(x=>x.id===id);if(!e)return;jedit=id;jmood=e.mood||'🙂';renderJournal();window.scrollTo(0,0);}
+function cancelJEdit(){jedit=null;renderJournal();}
+function delEntry(id){
+  confirmBox('Delete entry?','This journal entry will be permanently removed.','Delete',()=>{
+    S.journal=S.journal.filter(e=>e.id!==id);save();renderJournal();toast('Entry deleted','🗑');
+  });
+}
+
+/* ============ settings ============ */
+function renderSettings(){
+  $('#stRoot').innerHTML=`
+    <div class="row mb"><div><h1 class="h1">⚙️ Settings</h1><p class="sub">Theme, backups and your data.</p></div></div>
+    <div class="grid g2">
+      <div class="card"><h2 class="h2 mb">🎨 Appearance</h2>
+        <div class="row">
+          <button class="btn sm ${S.settings.theme!=='dark'?'':'ghost'}" onclick="setTheme('light')">☀️ Light</button>
+          <button class="btn sm ${S.settings.theme==='dark'?'':'ghost'}" onclick="setTheme('dark')">🌙 Dark</button>
+        </div>
+      </div>
+      <div class="card"><h2 class="h2 mb">💾 Backup &amp; restore</h2>
+        <p class="sub mb" style="font-size:.85rem">When opened with Flask, data is saved in local SQLite and cached in this browser. To move data from the old directly-opened HTML page, export its JSON backup there and import it here; file and localhost storage are separate.</p>
+        <div class="row">
+          <button class="btn sm" onclick="exportData()">⬇️ Export JSON</button>
+          <button class="btn sm ghost" onclick="document.getElementById('importFile').click()">⬆️ Import JSON</button>
+          <input type="file" id="importFile" accept="application/json,.json" style="display:none">
+        </div>
+      </div>
+      <div class="card"><h2 class="h2 mb">📦 Your data</h2>
+        <div class="row"><span class="chip">📚 ${WORDS.length} words</span><span class="chip">📓 ${S.journal.length} entries</span><span class="chip">⏱ ${S.workSessions.length} sessions</span><span class="chip">📝 ${S.notes.length} notes</span><span class="chip">🎨 ${S.hobbies.length} hobbies</span></div>
+        <p class="sub mt" style="font-size:.85rem">${API_ENABLED?'SQLite database on this device · ':''}Browser backup: ≈ ${Math.max(1,Math.round(((localStorage.getItem(LSKEY)||'').length)/1024))} KB</p>
+      </div>
+      <div class="card"><h2 class="h2 mb">⚠️ Danger zone</h2>
+        <p class="sub mb" style="font-size:.85rem">Reset clears your vocabulary progress, journal, portfolio, work sessions, IELTS scores, notes and hobbies, then restores the sample content.</p>
+        <button class="btn danger sm" onclick="resetAll()">🗑 Reset everything</button>
+      </div>
+    </div>
+    <div class="card mt"><h2 class="h2 mb">ℹ️ About</h2>
+      <p class="sub" style="font-size:.9rem">My Life Hub is a private, all-in-one personal app: portfolio, education goals, saved work timer, IELTS four-skill tracker, vocabulary trainer (${WORDS.length} words · flashcards · quizzes · progress), daily journal, notes and hobbies. Run it locally with Flask and SQLite for persistent storage, or open the HTML directly for browser-only mode. There is no account or cloud service.</p>
+    </div>`;
+  $('#importFile').addEventListener('change',importData);
+}
+function setTheme(t){S.settings.theme=t;save();applyTheme();renderSettings();}
+function exportData(){
+  const blob=new Blob([JSON.stringify(S,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  const url=URL.createObjectURL(blob);
+  a.href=url;
+  a.download='my-life-hub-backup-'+today()+'.json';
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),3000);
+  toast('Backup downloaded','💾');
+}
+function importData(ev){
+  const f=ev.target.files&&ev.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{
+    try{
+      const o=JSON.parse(r.result);
+      if(!o||typeof o!=='object'||!('profile'in o)||!('journal'in o))throw new Error('bad file');
+      S=normalizeState(o);save();applyTheme();renderSettings();toast('Backup imported','✅');
+    }catch(e){toast('Invalid backup file','⚠️');}
+  };
+  r.readAsText(f);
+  ev.target.value='';
+}
+function resetAll(){
+  confirmBox('Reset everything?','All your data will be replaced with the original sample content. This cannot be undone.','Reset',()=>{
+    try{localStorage.removeItem(LSKEY);}catch(e){}
+    S=seedState();fc=null;qz=null;jedit=null;jsearch='';save();applyTheme();toast('Reset done','🧹');route();
+  });
+}
+
+/* ============ init ============ */
+applyTheme();
+$('#themeBtn').addEventListener('click',toggleTheme);
+$('#menuBtn').addEventListener('click',()=>{$('#sidebar').classList.add('open');$('#scrim').classList.add('show');});
+$('#scrim').addEventListener('click',closeSidebar);
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+window.addEventListener('hashchange',route);
+window.addEventListener('storage',e=>{
+  if(e.key===LSKEY){
+    S=loadState();applyTheme();route();toast('Changes synced from another tab','🔄');
+  }
+});
+function updateLiveClock(){
+  const el=$('#liveClock');if(!el)return;
+  el.textContent=new Intl.DateTimeFormat(undefined,{hour:'numeric',minute:'2-digit',second:'2-digit'}).format(new Date());
+  el.dateTime=new Date().toISOString();
+}
+updateLiveClock();
+setInterval(updateLiveClock,1000);
+if(!location.hash)location.hash='#/dashboard';
+if(API_ENABLED)connectToServer();
+else{
+  route();
+  if(firstRun)setTimeout(()=>toast('Welcome! Everything you write is saved in this browser 👋','🌈'),600);
+}
+</script>
+</body>
+</html>
