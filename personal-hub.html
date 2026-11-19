@@ -510,7 +510,8 @@ function loadState(){
   }catch(e){console.error('Could not read the browser backup.',e);}
   return seedState();
 }
-const API_ENABLED=location.protocol==='http:'||location.protocol==='https:';
+const LOCAL_HOSTNAMES=new Set(['localhost','127.0.0.1','[::1]']);
+const API_ENABLED=(location.protocol==='http:'||location.protocol==='https:')&&LOCAL_HOSTNAMES.has(location.hostname);
 let serverReady=false,serverSaveQueue=Promise.resolve(),saveErrorShown=false;
 function setStorageStatus(mode,label,title){
   const el=$('#storageStatus');if(!el)return;
